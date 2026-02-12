@@ -21,8 +21,8 @@ app.use(cors({
 
 mongoose.connect(process.env.MONGO_URL).then((res)=>{
     console.log("mongodb connected")
-}).catch((erroe)=>{
-    console.log("error")
+}).catch((error)=>{
+    console.log("error", error)
 })
 
 app.use("/api", apiRouter)

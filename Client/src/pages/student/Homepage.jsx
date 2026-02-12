@@ -6,11 +6,11 @@ const Homepage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user);
-    });
-  }, []);
+  // useEffect(() => {
+  //   supabase.auth.getUser().then(({ data: { user } }) => {
+  //     setUser(user);
+  //   });
+  // }, []);
 
   return (
     <div

@@ -20,7 +20,7 @@ const Departmentpage = () => {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-2 p-4">
       {
         department && department.map((department,i)=>(
-          <Cards key={i}/>
+          <Cards key={i} department={department}/>
         ))
       }
       
