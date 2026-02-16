@@ -1,12 +1,29 @@
 import React, { useEffect, useState } from "react";
 import CartCard from "../components/student/CartCard";
 import { getCartItem } from "../services/studentServices";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const [cartItem, setCartItem] = useState([]);
+  const navigate = useNavigate()
 
 
-  
+  const updateCartFromChild = (id)=>{
+
+    setCartItem((prev) => prev.filter(item => item.departmentId._id != id))
+  }
+
+  function EmptyCart(){
+    return(
+      <div className="flex justify-center items-center flex-col h-screen ">
+        <p>Cart is empty</p>
+         <button className="btn btn-neutral" onClick={() => navigate("/department")}>
+            Get Departments
+          </button>
+
+      </div>
+    )
+  }
 
 
   useEffect(() => {
@@ -21,13 +38,14 @@ const CartPage = () => {
   }, []);
   return (
     <>
-      {cartItem && (
+      {cartItem.length ?
         <>
           {cartItem.map((item) => (
-            <CartCard key={item._id} item={item} />
+            <CartCard key={item._id} item={item} updateCartFromChild = {updateCartFromChild} />
           ))}
-        </>
-      )}
+        </>:
+        <EmptyCart/>
+      }
     </>
   );
 };

@@ -1,12 +1,13 @@
 import React from "react";
 import { removeCartItem } from "../../services/studentServices";
 
-const CartCard = ({item}) => {
+const CartCard = ({item, updateCartFromChild}) => {
 
   const removeItem = (departmentId)=>{
     try {
       removeCartItem(departmentId).then((res)=>{
         console.log(res);
+        updateCartFromChild(departmentId)
 
       }).catch((error)=>{
         console.log(error)

@@ -4,14 +4,6 @@ import { supabase } from '../../components/shared/SupabaseClient'
 
 const Homepage = () => { 
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   supabase.auth.getUser().then(({ data: { user } }) => {
-  //     setUser(user);
-  //   });
-  // }, []);
-
   return (
     <div
       className="hero min-h-screen"
