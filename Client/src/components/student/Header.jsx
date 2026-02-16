@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { studentLogout } from "../../services/studentServices";
 import { persistor } from "../../redux/store";
 import { claerStudent } from "../../redux/features/studentSlice";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Header = () => {
   const studentData = useSelector((state) => state.student);
@@ -15,6 +16,7 @@ const Header = () => {
       studentLogout().then((res) => {
         persistor.purge();
         dispatch(claerStudent());
+        navigate("/")
       });
     } catch (error) {
       console.log(error);
@@ -83,8 +85,9 @@ const Header = () => {
       <div className="navbar-end gap-5">
         <DarkMode />
         {studentData.student && Object.keys(studentData.student).length > 0 ? (
-          <div>
+          <div className="flex items-center space-x-3">
             <span> {studentData.student.name}</span>
+            <button onClick={()=> navigate("cart")}><FaShoppingCart  className="text-xl"/></button>
             <button className="btn" onClick={handleLogout}>Logout</button>
           </div>
         ) : (

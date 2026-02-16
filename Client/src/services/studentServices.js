@@ -19,3 +19,11 @@ export const studentLogout = ()=>{
 export const addToCart = (departmentId)=>{
    return axiosInstance.post(`/cart/addtocart/${departmentId}`)
 }
+
+export const getCartItem = ()=>{
+   return axiosInstance.get(`/cart/getcart`)
+}
+
+export const removeCartItem = (departmentId)=>{
+   return axiosInstance.delete(`/cart/removefromcart/${departmentId}`)
+}
