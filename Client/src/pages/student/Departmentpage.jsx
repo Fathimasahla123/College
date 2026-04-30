@@ -5,7 +5,6 @@ import { listDepartment } from "../../services/studentServices";
 
 const Departmentpage = () => {
   const [department,setDepartment] = useState([])
-
   useEffect(() => {
     listDepartment().then((res)=>{
       console.log(res);
