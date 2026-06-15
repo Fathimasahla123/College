@@ -1,6 +1,9 @@
 const { createToken } = require("../../utilities/generateToken");
 const { hashPassword, comparePassword } = require("../../utilities/passwordUtilities");
 const Admin = require("../models/adminModel");
+const Student = require("../models/studentModel");
+const Faculty = require("../models/facultyModel");
+const Department = require("../models/departmentModel");
 
 exports.adminRegister = async(req,res)=>{
     try {
@@ -74,3 +77,27 @@ exports.adminLogout = async(req,res)=>{
       .json({ error: error.message || "internal server error" });
   }
 }
+
+
+exports.adminDashboard = async (req, res) => {
+  try {
+    const totalStudents = await Student.countDocuments();
+    const totalFaculty = await Faculty.countDocuments();
+    const totalDepartments = await Department.countDocuments();
+
+    const recentDepartments = await Department.find()
+      .sort({ createdAt: -1 })
+      .limit(5);
+
+    res.status(200).json({
+      totalStudents,
+      totalFaculty,
+      totalDepartments,
+      recentDepartments,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};

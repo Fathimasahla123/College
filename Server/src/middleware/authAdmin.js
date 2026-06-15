@@ -4,7 +4,7 @@ const authAdmin = (req,res,next) =>{
     try {
         const {Admin_token} = req.cookies;
         if(!Admin_token){
-            return res.status(401).json({error: "jwt not found"})
+            return res.status(401).json({error: "login required"})
         }
 
         const verifiedToken = jwt.verify(Admin_token, process.env.JWT_SECRET)

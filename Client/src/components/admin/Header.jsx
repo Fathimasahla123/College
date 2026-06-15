@@ -2,21 +2,21 @@ import React from "react";
 import DarkMode from "../shared/DarkMode";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { studentLogout } from "../../services/studentServices";
+import { adminLogout } from "../../services/adminServices";
 import { persistor } from "../../redux/store";
-import { clearStudent } from "../../redux/features/studentSlice";
+import { clearAdmin } from "../../redux/features/adminSlice";
 import { FaShoppingCart } from "react-icons/fa";
 
 const Header = () => {
-  const studentData = useSelector((state) => state.student);
+  const adminData = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     try {
-      studentLogout().then((res) => {
+      adminLogout().then((res) => {
         persistor.purge();
-        dispatch(clearStudent());
-        navigate("/")
+        dispatch(clearAdmin());
+        navigate("/login")
       });
     } catch (error) {
       console.log(error);
@@ -49,7 +49,7 @@ const Header = () => {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <li onClick={() => navigate("/")}>
+            <li onClick={() => navigate("/admin")}>
               <a>Home</a>
             </li>
             <li onClick={() => navigate("/about")}>
@@ -67,7 +67,7 @@ const Header = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li onClick={() => navigate("/")}>
+          <li onClick={() => navigate("/admin")}>
             <a>Home</a>
           </li>
           <li onClick={() => navigate("/about")}>
@@ -84,11 +84,16 @@ const Header = () => {
 
       <div className="navbar-end gap-5">
         <DarkMode />
-        {studentData.student && Object.keys(studentData.student).length > 0 ? (
+        {adminData.admin && Object.keys(adminData.admin).length > 0 ? (
           <div className="flex items-center space-x-3">
-            <span> {studentData.student.name}</span>
-            <button onClick={()=> navigate("cart")}><FaShoppingCart  className="text-xl"/></button>
-            <button className="btn" onClick={handleLogout}>Logout</button>
+            <span> {adminData.admin.email}</span>
+            {/* <button onClick={()=> navigate("cart")}><FaShoppingCart  className="text-xl"/></button> */}
+            <button className="btn" onClick={() => {
+              handleLogout();
+              navigate("/login");
+            }}>
+              Logout
+            </button>
           </div>
         ) : (
           <a className="btn" onClick={() => navigate("/login")}>

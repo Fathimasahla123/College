@@ -82,3 +82,16 @@ exports.studentLogout = (req, res)=>{
       .json({ error: error.message || "internal server error" });
   }
 }
+
+exports.listStudents = async(req,res)=>{
+    try {
+        const studentList = await Student.find()
+        res.status(200).json(studentList)
+    } catch (error) {
+         console.log(error);
+    res
+      .status(error.status || 500)
+      .json({ error: error.message || "internal server error" });
+        
+    }
+}

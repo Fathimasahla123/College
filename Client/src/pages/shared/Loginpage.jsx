@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { studentLogin } from "../../services/studentServices";
+import { adminLogin } from "../../services/adminServices";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { saveStudent } from "../../redux/features/studentSlice";
+import { saveAdmin } from "../../redux/features/adminSlice";
 
 const Loginpage = () => {
   const navigate = useNavigate();
@@ -14,19 +16,43 @@ const Loginpage = () => {
     password: "",
   });
 
-  const onSubmit = () => {
-    studentLogin(values)
-      .then((res) => {
-        console.log(res);
-        toast.success("Login successfull");
-        dispatch(saveStudent(res.data.studentExist))
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(error.response.data.error);
-      });
-  };
+  const onSubmit = async () => {
+  try {
+    const adminRes = await adminLogin(values);
+
+    toast.success("Admin Login Successful");
+
+    dispatch(saveAdmin(adminRes.data.adminExist));
+
+    navigate("/admin");
+  } catch (adminError) {
+    try {
+      const studentRes = await studentLogin(values);
+
+      toast.success("Student Login Successful");
+
+      dispatch(saveStudent(studentRes.data.studentExist));
+
+      navigate("/");
+    } catch (studentError) {
+      toast.error("Invalid Email or Password");
+    }
+  }
+};
+
+  // const onSubmit = () => {
+  //   studentLogin(values)
+  //     .then((res) => {
+  //       console.log(res);
+  //       toast.success("Login successfull");
+  //       dispatch(saveStudent(res.data.studentExist))
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       toast.error(error.response.data.error);
+  //     });
+  // };
 
   return (
     <div className="hero bg-base-200 min-h-screen">

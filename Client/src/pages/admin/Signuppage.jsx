@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { studentSignup } from "../../services/studentServices";
+import { adminSignup } from "../../services/adminServices";
 import { toast } from "react-toastify";
 
-const Signuppage = () => {
+const Adminsignup = () => {
   const [values, setValues] = useState({
-    name: "",
     email: "",
     password: "",
-    confirmpassword: "",
   });
 
   const navigate = useNavigate();
   const onSubmit = () => {
-    studentSignup(values)
+    adminSignup(values)
       .then((res) => {
         console.log(res);
         toast.success("Signup successfull");
@@ -39,7 +37,7 @@ const Signuppage = () => {
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <div className="card-body">
               <fieldset className="fieldset">
-                <label className="label">Name</label>
+                {/* <label className="label">Name</label>
                 <input
                   type="text"
                   className="input"
@@ -48,7 +46,7 @@ const Signuppage = () => {
                   onChange={(e) => {
                     setValues({ ...values, [e.target.name]: e.target.value });
                   }}
-                />
+                /> */}
                 <label className="label">Email</label>
                 <input
                   type="email"
@@ -69,7 +67,7 @@ const Signuppage = () => {
                     setValues({ ...values, [e.target.name]: e.target.value });
                   }}
                 />
-                <label className="label">Confirm Password</label>
+                {/* <label className="label">Confirm Password</label>
                 <input
                   type="password"
                   className="input"
@@ -78,7 +76,7 @@ const Signuppage = () => {
                   onChange={(e) => {
                     setValues({ ...values, [e.target.name]: e.target.value });
                   }}
-                />
+                /> */}
                 {/* <div>
                 <a className="link link-hover">Forgot password?</a>
               </div> */}
@@ -100,4 +98,4 @@ const Signuppage = () => {
   );
 };
 
-export default Signuppage;
+export default Adminsignup;

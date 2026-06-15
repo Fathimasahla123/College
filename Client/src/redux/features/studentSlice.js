@@ -12,7 +12,7 @@ export const studentSlice = createSlice({
         state.student = action.payload
 
     },
-    claerStudent: (state) => {
+    clearStudent: (state) => {
       state.student = {}
     },
    
@@ -20,6 +20,6 @@ export const studentSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { saveStudent, claerStudent } = studentSlice.actions
+export const { saveStudent, clearStudent } = studentSlice.actions
 
 export default studentSlice.reducer
